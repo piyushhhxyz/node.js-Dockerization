@@ -10,8 +10,7 @@ RUN apt-get install -y nodejs
 
 WORKDIR /app
 
-COPY package.json package.json
-COPY package-lock.json package-lock.json
+COPY package* ./
 
 RUN  npm i
 
