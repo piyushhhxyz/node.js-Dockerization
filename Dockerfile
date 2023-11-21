@@ -1,22 +1,14 @@
-FROM ubuntu
-
-
-# layer-caching common installs
-RUN apt-get update
-RUN apt-get install -y curl
-RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
-RUN apt-get upgrade -y
-RUN apt-get install -y nodejs
+FROM node:20
 
 WORKDIR /app
 
-COPY package.json package.json
-COPY package-lock.json package-lock.json
+COPY package* .
+RUN npm i
 
-RUN  npm i
 
-# cach-layer ordering 
-# as for these npm i not need not be invoked -> caching optimised
-COPY index.js index.js
+# push source code to the end
+# beacause your source code changes the least.
+COPY . .
 
-ENTRYPOINT [ "node", "index.js" ]
+EXPOSE 8000
+CMD ["node", "index.js"]
