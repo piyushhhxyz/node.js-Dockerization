@@ -10,7 +10,7 @@ RUN apt-get install -y nodejs
 
 WORKDIR /app
 
-COPY package* ./
+COPY package* .
 
 RUN  npm i
 
